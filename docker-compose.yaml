@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  database:
+    container_name: postgres_db
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+  app:
+    container_name: app
+    build: .
+    command: sh -c "alembic upgrade head && uvicorn app:app --host 0.0.0.0 --port 8000 --reload"
+    volumes:
+      - .:/service_interrupt_framework
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+      - DEBUG=${DEBUG}
+    depends_on:
+      - database
+    restart: always

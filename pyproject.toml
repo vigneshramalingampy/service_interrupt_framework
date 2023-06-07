@@ -1,0 +1,60 @@
+[tool.poetry]
+name = "service-interrupt-framework"
+version = "0.1.0"
+description = ""
+authors = ["Vignesh <vignesh.ramalingam.py@gmail.com>"]
+readme = "README.md"
+packages = [{ include = "service_interrupt_framework" }]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.96.0"
+uvicorn = "^0.22.0"
+sqlalchemy = {extras = ["asyncio"], version = "^2.0.13"}
+python-dotenv = "^1.0.0"
+alembic = "^1.10.4"
+asyncpg = "^0.27.0"
+greenlet = "^2.0.2"
+python-multipart = "^0.0.6"
+redis-om = "^0.1.2"
+
+
+[tool.poetry.group.development.dependencies]
+black = {extras = ["d"], version = "^23.3.0"}
+ruff = "^0.0.265"
+isort = "^5.12.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 120
+
+[tool.isort]
+profile = "black"
+
+
+[tool.ruff]
+src = ["."]
+target-version = "py311"
+fix = true
+show-source = true
+line-length = 130
+select = ["E", "F", "N801", "N802", "N803", "N805", "N806", "Q0"]
+ignore = ["F401"]
+
+[tool.ruff.flake8-quotes]
+inline-quotes = "double"
+multiline-quotes = "double"
+docstring-quotes = "double"
+
+
+[tool.ruff.flake8-tidy-imports]
+ban-relative-imports = "all"
+
+[tool.ruff.flake8-type-checking]
+strict = true
+
+[tool.ruff.isort]
+combine-as-imports = true
